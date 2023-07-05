@@ -2,10 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const TalentRouter = require("./app/api/v1/Talents/router");
 const CategorieRoute = require("./app/api/v1/categories/router");
-const ImageRoute = require("./app/api/v1/Images/router");
-const EventRoute = require("./app/api/v1/Events/router");
 
 const app = express();
 
@@ -29,8 +26,6 @@ app.get("/", (req, res) => {
 });
 
 app.use(v1, CategorieRoute);
-
-// middlewares
 app.use(notFoundMiddleware);
 app.use(handleErrorMiddleware);
 
