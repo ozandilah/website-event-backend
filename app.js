@@ -3,7 +3,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const CategorieRoute = require("./app/api/v1/categories/router");
-
+const ImageRoute = require("./app/api/v1/images/router");
+const TalentRoute = require("./app/api/v1/talents/router");
 const app = express();
 
 // router
@@ -26,6 +27,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(v1, CategorieRoute);
+app.use(v1, ImageRoute);
+app.use(v1, TalentRoute);
 app.use(notFoundMiddleware);
 app.use(handleErrorMiddleware);
 
