@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { model, Schema } = mongoose;
-mongoose.Promise = global.Promise;
 
 let talentSchema = Schema(
   {
@@ -22,4 +21,4 @@ let talentSchema = Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Talent || model("Talent", talentSchema);
+module.exports = model("Talent", talentSchema);

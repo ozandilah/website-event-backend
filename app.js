@@ -5,6 +5,7 @@ const logger = require("morgan");
 const CategorieRoute = require("./app/api/v1/categories/router");
 const ImageRoute = require("./app/api/v1/images/router");
 const TalentRoute = require("./app/api/v1/talents/router");
+const EventRoute = require("./app/api/v1/events/router");
 const app = express();
 
 // router
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 app.use(v1, CategorieRoute);
 app.use(v1, ImageRoute);
 app.use(v1, TalentRoute);
+app.use(v1, EventRoute);
 app.use(notFoundMiddleware);
 app.use(handleErrorMiddleware);
 
