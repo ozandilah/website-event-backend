@@ -1,24 +1,40 @@
-const Users = require("../api/v1/users/model");
-const { BadRequestError, UnauthorizedError } = require("../errors");
-const { createTokenUser, createJWT } = require("../utils");
+const { UnauthenticatedErrror, UnauthorizedError } = require("../errors");
+const { isTokenValid } = require("../utils/jwt");
+const authenticateUser = async (req, res, next) => {
+  try {
+    let token;
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
+    }
+    if (!token) {
+      throw new UnauthenticatedError("Invalid authentication!");
+    }
 
-const signin = async (req) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    throw new BadRequestError("Please provide email and password");
+    const payload = isTokenValid({ token });
+
+    // Attach the user and their permissions to the req object
+    req.user = {
+      email: payload.email,
+      role: payload.role,
+      name: payload.name,
+      organizer: payload.organizer,
+      id: payload.userId,
+    };
+
+    next();
+  } catch (error) {
+    next(error);
   }
-  const result = await Users.findOne({ email: email });
-
-  if (!result) {
-    throw new UnauthorizedError("Invalid Credentials");
-  }
-
-  const isPasswordCorrect = await result.comparePassword(password);
-  if (!isPasswordCorrect) {
-    throw new UnauthorizedError("Invalid Credentials");
-  }
-  const token = createJWT({ payload: createTokenUser(result) });
-
-  return token;
 };
-module.exports = { signin };
+
+const authorizeRoles = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      throw new UnauthorizedError("Unauthorized to access this route!");
+    }
+    next();
+  };
+};
+
+module.exports = { authenticateUser, authorizeRoles };
