@@ -2,10 +2,40 @@ const express = require("express");
 const TalentRoute = express();
 const { create, index, find, update, destroy } = require("./controller");
 
-TalentRoute.get("/talents", index);
-TalentRoute.get("/talents/:id", find);
-TalentRoute.put("/talents/:id", update);
-TalentRoute.delete("/talents/:id", destroy);
-TalentRoute.post("/talents", create);
+const {
+  authenticateUser,
+  authorizeRoles,
+} = require("../../../middlewares/auth");
+
+TalentRoute.get(
+  "/talents",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  index
+);
+TalentRoute.get(
+  "/talents/:id",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  find
+);
+TalentRoute.put(
+  "/talents/:id",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  update
+);
+TalentRoute.delete(
+  "/talents/:id",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  destroy
+);
+TalentRoute.post(
+  "/talents",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  create
+);
 
 module.exports = TalentRoute;
