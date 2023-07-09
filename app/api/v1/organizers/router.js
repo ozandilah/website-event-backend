@@ -5,12 +5,30 @@ const {
   getCMSUsers,
   createCMSUser,
 } = require("./controller");
-const { authenticateUser } = require("../../../middlewares/auth");
+const {
+  authenticateUser,
+  authorizeRoles,
+} = require("../../../middlewares/auth");
 
-OrganizerRoute.post("/organizer", createCMSOrganizer);
+OrganizerRoute.post(
+  "/organizer",
+  authenticateUser,
+  authorizeRoles("owner"),
+  createCMSOrganizer
+);
 
-OrganizerRoute.post("/users", authenticateUser, createCMSUser);
+OrganizerRoute.post(
+  "/users",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  createCMSUser
+);
 
-OrganizerRoute.get("/users", getCMSUsers);
+OrganizerRoute.get(
+  "/users",
+  authenticateUser,
+  authorizeRoles("owner"),
+  getCMSUsers
+);
 
 module.exports = OrganizerRoute;
