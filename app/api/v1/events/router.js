@@ -1,6 +1,13 @@
 const express = require("express");
 const EventRoute = express();
-const { create, index, find, update, destroy } = require("./controller");
+const {
+  create,
+  index,
+  find,
+  update,
+  destroy,
+  changeStatus,
+} = require("./controller");
 
 const {
   authenticateUser,
@@ -33,4 +40,10 @@ EventRoute.post(
   create
 );
 
+EventRoute.put(
+  "/events/:id/status",
+  authenticateUser,
+  authorizeRoles("organizer"),
+  changeStatus
+);
 module.exports = EventRoute;

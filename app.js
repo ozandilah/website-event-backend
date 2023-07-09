@@ -17,6 +17,7 @@ const v1 = "/api/v1/cms";
 
 const notFoundMiddleware = require("./app/middlewares/not-found");
 const handleErrorMiddleware = require("./app/middlewares/handler-error");
+const OrdersRoute = require("./app/api/v1/orders/router");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -36,6 +37,7 @@ app.use(v1, TalentRoute);
 app.use(v1, EventRoute);
 app.use(v1, OrganizerRoute);
 app.use(v1, AuthRoute);
+app.use(v1, OrdersRoute);
 app.use(notFoundMiddleware);
 app.use(handleErrorMiddleware);
 
