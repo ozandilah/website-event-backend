@@ -12,5 +12,4 @@ const organizerschema = new Schema(
   { timestamps: true }
 );
 
-module.exports =
-  mongoose.models.Organizer || model("Organizer", organizerschema);
+module.exports = model("Organizer", organizerschema);

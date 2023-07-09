@@ -1,7 +1,16 @@
 const express = require("express");
 const OrganizerRoute = express.Router();
-const { create } = require("./controller");
+const {
+  createCMSOrganizer,
+  getCMSUsers,
+  createCMSUser,
+} = require("./controller");
+const { authenticateUser } = require("../../../middlewares/auth");
 
-OrganizerRoute.post("/organizer", create);
+OrganizerRoute.post("/organizer", createCMSOrganizer);
+
+OrganizerRoute.post("/users", authenticateUser, createCMSUser);
+
+OrganizerRoute.get("/users", getCMSUsers);
 
 module.exports = OrganizerRoute;

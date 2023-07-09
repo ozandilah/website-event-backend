@@ -10,6 +10,7 @@ const {
 const create = async (req, res, next) => {
   try {
     const result = await createCategories(req);
+
     res.status(StatusCodes.CREATED).json({
       data: result,
     });
@@ -21,6 +22,7 @@ const create = async (req, res, next) => {
 const index = async (req, res, next) => {
   try {
     const result = await getAllCategories(req);
+
     res.status(StatusCodes.OK).json({
       data: result,
     });
@@ -32,6 +34,7 @@ const index = async (req, res, next) => {
 const find = async (req, res, next) => {
   try {
     const result = await getOneCategories(req);
+
     res.status(StatusCodes.OK).json({
       data: result,
     });
