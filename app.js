@@ -14,11 +14,12 @@ const app = express();
 
 // router
 
-const v1 = "/api/v1/cms";
+const v1 = "/api/v1";
 
 const notFoundMiddleware = require("./app/middlewares/not-found");
 const handleErrorMiddleware = require("./app/middlewares/handler-error");
 const OrdersRoute = require("./app/api/v1/orders/router");
+const paymentsRoute = require("./app/api/v1/payments/router");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -32,14 +33,15 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use(v1, CategorieRoute);
-app.use(v1, ImageRoute);
-app.use(v1, TalentRoute);
-app.use(v1, EventRoute);
-app.use(v1, OrganizerRoute);
-app.use(v1, AuthRoute);
-app.use(v1, OrdersRoute);
-app.use(v1, participantsRoute);
+app.use(`${v1}/cms`, CategorieRoute);
+app.use(`${v1}/cms`, ImageRoute);
+app.use(`${v1}/cms`, TalentRoute);
+app.use(`${v1}/cms`, EventRoute);
+app.use(`${v1}/cms`, OrganizerRoute);
+app.use(`${v1}/cms`, AuthRoute);
+app.use(`${v1}/cms`, OrdersRoute);
+app.use(`${v1}`, participantsRoute);
+app.use(`${v1}/cms`, paymentsRoute);
 app.use(notFoundMiddleware);
 app.use(handleErrorMiddleware);
 

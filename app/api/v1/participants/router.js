@@ -18,12 +18,12 @@ participantsRoute.post("/auth/signin", signin);
 participantsRoute.put("/active", activeParticipant);
 participantsRoute.get("/events", getAllLandingPage);
 participantsRoute.get("/events/:id", getDetailLandingPage);
-participantsRoute.get(
-  "/payments/:organizer",
-  authenticateParticipant,
-  getAllPayment
-);
-participantsRoute.get("/orders", authenticateParticipant, getDashboard);
-participantsRoute.post("/checkout", authenticateParticipant, checkout);
+// participantsRoute.get(
+//   "/payments/:organizer",
+//   authenticateParticipant,
+//   getAllPayment
+// );
+// participantsRoute.get("/orders", authenticateParticipant, getDashboard);
+// participantsRoute.post("/checkout", authenticateParticipant, checkout);
 
 module.exports = participantsRoute;
