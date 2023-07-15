@@ -43,7 +43,7 @@ const authenticateParticipant = async (req, res, next) => {
     }
 
     if (!token) {
-      throw new UnauthenticatedError("Authentication invalid");
+      throw new UnauthenticatedErrror("Authentication invalid");
     }
 
     const payload = isTokenValid({ token });

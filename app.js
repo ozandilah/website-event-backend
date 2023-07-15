@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 const CategorieRoute = require("./app/api/v1/categories/router");
 const ImageRoute = require("./app/api/v1/images/router");
 const TalentRoute = require("./app/api/v1/talents/router");
@@ -20,7 +21,7 @@ const notFoundMiddleware = require("./app/middlewares/not-found");
 const handleErrorMiddleware = require("./app/middlewares/handler-error");
 const OrdersRoute = require("./app/api/v1/orders/router");
 const paymentsRoute = require("./app/api/v1/payments/router");
-
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
