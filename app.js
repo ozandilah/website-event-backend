@@ -21,6 +21,7 @@ const notFoundMiddleware = require("./app/middlewares/not-found");
 const handleErrorMiddleware = require("./app/middlewares/handler-error");
 const OrdersRoute = require("./app/api/v1/orders/router");
 const paymentsRoute = require("./app/api/v1/payments/router");
+const userRefreshTokenRoute = require("./app/api/v1/userRefreshToken/router");
 
 app.use(cors());
 app.use(logger("dev"));
@@ -44,6 +45,7 @@ app.use(`${v1}/cms`, AuthRoute);
 app.use(`${v1}/cms`, OrdersRoute);
 app.use(`${v1}`, participantsRoute);
 app.use(`${v1}/cms`, paymentsRoute);
+app.use(`${v1}/cms`, userRefreshTokenRoute);
 app.use(notFoundMiddleware);
 app.use(handleErrorMiddleware);
 
